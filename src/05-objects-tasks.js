@@ -20,8 +20,12 @@
  *    console.log(r.height);      // => 20
  *    console.log(r.getArea());   // => 200
  */
-function Rectangle(/* width, height */) {
-  throw new Error('Not implemented');
+function Rectangle(width, height) {
+  this.width = width;
+  this.height = height;
+  this.getArea = function fn() {
+    return this.width * this.height;
+  };
 }
 
 
@@ -35,8 +39,8 @@ function Rectangle(/* width, height */) {
  *    [1,2,3]   =>  '[1,2,3]'
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
-function getJSON(/* obj */) {
-  throw new Error('Not implemented');
+function getJSON(obj) {
+  return JSON.stringify(obj);
 }
 
 
@@ -51,8 +55,10 @@ function getJSON(/* obj */) {
  *    const r = fromJSON(Circle.prototype, '{"radius":10}');
  *
  */
-function fromJSON(/* proto, json */) {
-  throw new Error('Not implemented');
+function fromJSON(proto, json) {
+  const obj = JSON.parse(json);
+  Object.setPrototypeOf(obj, proto);
+  return obj;
 }
 
 
@@ -109,6 +115,97 @@ function fromJSON(/* proto, json */) {
  *
  *  For more examples see unit tests.
  */
+// class Selector {
+//   constructor(type, value, children) {
+//     this.type = type;
+//     this.value = value;
+//     this.children = children || [];
+//   }
+
+//   stringify() {
+//     let str = '';
+//     switch (this.type) {
+//       case 'element':
+//         str += this.value;
+//         break;
+//       case 'id':
+//         str += `#${this.value}`;
+//         break;
+//       case 'class':
+//         str += `.${this.value}`;
+//         break;
+//       case 'attr':
+//         str += `[${this.value}]`;
+//         break;
+//       case 'pseudo-class':
+//         str += `:${this.value}`;
+//         break;
+//       case 'pseudo-element':
+//         str += `::${this.value}`;
+//         break;
+//       case 'combinator':
+//         str += ` ${this.value} `;
+//         break;
+//       default:
+//         throw new Error('Invalid selector type');
+//     }
+//     if (this.children.length > 0) {
+//       str += this.children.map((child) => child.stringify()).join('');
+//     }
+//     return str;
+//   }
+// }
+
+// const cssSelectorBuilder = {
+//   selectors: [],
+
+//   createSelector(type, value) {
+//     const selector = new Selector(type, value);
+//     this.selectors.push(selector);
+//     return this;
+//   },
+
+//   createCombinator(combinator, selector1, selector2) {
+//     const selector = new Selector('combinator', combinator, [selector1, selector2]);
+//     this.selectors.push(selector);
+//     return this;
+//   },
+
+//   element(value) {
+//     return this.createSelector('element', value);
+//   },
+
+//   id(value) {
+//     return this.createSelector('id', value);
+//   },
+
+//   class(value) {
+//     return this.createSelector('class', value);
+//   },
+
+//   attr(value) {
+//     return this.createSelector('attr', value);
+//   },
+
+//   pseudoClass(value) {
+//     return this.createSelector('pseudo-class', value);
+//   },
+
+//   pseudoElement(value) {
+//     return this.createSelector('pseudo-element', value);
+//   },
+
+//   combine(selector1, combinator, selector2) {
+//     return this.createCombinator(combinator, selector1, selector2);
+//   },
+
+//   stringify() {
+//     const result = this.selectors.map((selector) => selector.stringify()).join('');
+//     this.selectors = [];
+//     return result;
+//   },
+// };
+
 
 const cssSelectorBuilder = {
   element(/* value */) {
