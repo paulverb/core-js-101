@@ -165,8 +165,11 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  const dx = point.x - circle.center.x;
+  const dy = point.y - circle.center.y;
+  const distance = Math.sqrt(dx * dx + dy * dy);
+  return distance < circle.radius;
 }
 
 
@@ -184,6 +187,22 @@ function isInsideCircle(/* circle, point */) {
 function findFirstSingleChar(/* str */) {
   throw new Error('Not implemented');
 }
+// function findFirstSingleChar(str) {
+//   const myMap = new Map();
+//   str.split('').forEach((el, i) => {
+//     const char = str.charAt(i);
+//     if (!myMap.has(char)) {
+//       myMap.set(char, 0);
+//     }
+//     myMap.set(char, myMap.get(char) + 1);
+//   });
+//   for (const [key, value] of myMap) {
+//     if (value === 1) {
+//       return key;
+//     }
+//   }
+//   return null;
+// }
 
 
 /**
@@ -208,8 +227,12 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  const leftBracket = isStartIncluded ? '[' : '(';
+  const intervalStart = Math.min(a, b);
+  const intervalEnd = Math.max(a, b);
+  const rightBracket = isEndIncluded ? ']' : ')';
+  return `${leftBracket}${intervalStart}, ${intervalEnd}${rightBracket}`;
 }
 
 
@@ -225,8 +248,8 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
 
@@ -242,8 +265,8 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  return Number(num.toString().split('').reverse().join(''));
 }
 
 
